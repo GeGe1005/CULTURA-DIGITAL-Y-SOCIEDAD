@@ -1,6 +1,6 @@
 # CULTURA-DIGITAL-Y-SOCIEDAD
 
-# Netflix Analytics
+# Netflix 
 
 ## Objetivo
 Procesar eventos de visualización para analizar consumo de contenidos, planes y tasa de finalización.

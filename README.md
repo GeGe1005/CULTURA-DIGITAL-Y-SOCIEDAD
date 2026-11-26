@@ -107,4 +107,4 @@ La transformación de los identificadores de usuario es una pseudonimización: s
 
 ## 11. Autoría
 
-Proyecto académico de análisis de datos desarrollado en Python.
+Autónomo 4 de Cultura Digital y Sociedad

@@ -1,9 +1,11 @@
 #Actividad Autónoma 5 
 ##Unidad 3: Datos, Privacidad y Seguridad en la Era Digital 
 ##Tema 1: Privacidad de Datos y Normativas Digitales 
+
 import pandas as pd
 import numpy as np
 
+# 1. Datos simulados con información sensible (Usuarios de Netflix)
 datos = {
     "nombre_real": ["Estefania Grijalva", "Gissella Enriquez", "Juan Perez", "Maria Lopez"],
     "edad": [22, 21, 45, 34],
@@ -13,23 +15,21 @@ datos = {
 df = pd.DataFrame(datos)
 print("--- DATOS ORIGINALES (Privacidad vulnerable) ---")
 display(df)
+
+# 2. TÉCNICA: Anonimización (Eliminar datos personales directos)
+# Reemplazamos el nombre por un ID numérico (factorize)
 df["id_anonimo"] = pd.factorize(df["nombre_real"])[0] + 1
-df = df.drop(columns=["nombre_real"])
-print("\n--- DATOS ANONIMIZADOS (GDPR/CCPA compliant) ---")
+df = df.drop(columns=["nombre_real"]) # Se elimina el nombre real para siempre
+
+print("\n--- DATOS ANONIMIZADOS (GDPR/CCPA Compliant) ---")
 display(df)
-epsilon = 1.0
+
+# 3. TÉCNICA: Privacidad Diferencial (Añadir ruido matemático)
+# Esto protege los datos numéricos para que no se pueda deducir el comportamiento exacto
+epsilon = 1.0 # Nivel de privacidad
 escala = 1.0 / epsilon
-np.random.seed(42)
 ruido = np.random.laplace(0, escala, len(df))
+
 df["minutos_vistos_protegidos"] = df["minutos_vistos"] + ruido
-df["minutos_vistos_protegidos"] = df["minutos_vistos_protegidos"].round(2)
 print("\n--- DATOS CON PRIVACIDAD DIFERENCIAL (Métricas protegidas) ---")
-display(
-    df[
-        [
-            "id_anonimo",
-            "minutos_vistos",
-            "minutos_vistos_protegidos"
-        ]
-    ]
-)
+display(df[["id_anonimo", "minutos_vistos", "minutos_vistos_protegidos"]])

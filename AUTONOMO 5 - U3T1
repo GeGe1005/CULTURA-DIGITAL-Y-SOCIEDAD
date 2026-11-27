@@ -1,19 +1,6 @@
 #Actividad Autónoma 5 
-
 ##Unidad 3: Datos, Privacidad y Seguridad en la Era Digital 
-
 ##Tema 1: Privacidad de Datos y Normativas Digitales 
-
-Nombres: ESTEFANIA GRIJALVA, GISSELLA ENRIQUEZ
-
-Fecha:  26/11/2026
-
-Carrera: Ciencia de Datos 
-
-Periodo académico:  2026 S1
-
-Semestre:  TERCERO A
-
 import pandas as pd
 import numpy as np
 
@@ -26,18 +13,23 @@ datos = {
 df = pd.DataFrame(datos)
 print("--- DATOS ORIGINALES (Privacidad vulnerable) ---")
 display(df)
-
 df["id_anonimo"] = pd.factorize(df["nombre_real"])[0] + 1
-df = df.drop(columns=["nombre_real"]) 
-
-print("\n--- DATOS ANONIMIZADOS (GDPR/CCPA Compliant) ---")
+df = df.drop(columns=["nombre_real"])
+print("\n--- DATOS ANONIMIZADOS (GDPR/CCPA compliant) ---")
 display(df)
-
-epsilon = 1.0 
+epsilon = 1.0
 escala = 1.0 / epsilon
+np.random.seed(42)
 ruido = np.random.laplace(0, escala, len(df))
-
 df["minutos_vistos_protegidos"] = df["minutos_vistos"] + ruido
-
+df["minutos_vistos_protegidos"] = df["minutos_vistos_protegidos"].round(2)
 print("\n--- DATOS CON PRIVACIDAD DIFERENCIAL (Métricas protegidas) ---")
-display(df[["id_anonimo", "minutos_vistos", "minutos_vistos_protegidos"]])
+display(
+    df[
+        [
+            "id_anonimo",
+            "minutos_vistos",
+            "minutos_vistos_protegidos"
+        ]
+    ]
+)
